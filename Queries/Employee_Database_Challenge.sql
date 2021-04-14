@@ -32,7 +32,7 @@ ORDER BY emp_no, to_date DESC;
 --#13 See Data folder for exported unique_titles.csv file.
 --#14 Confirm unique_titles.
 SELECT * FROM unique_titles;
---#15,16,17,18
+--#15,16,17,18 Create the number of retiring employees list.
 SELECT count(*) count, title
 INTO retiring_titles
 FROM unique_titles 
@@ -69,6 +69,21 @@ ORDER BY e.emp_no;
 SELECT * FROM mentorship_eligibility;
 
 --**********************************
+--More Analysis
+--**********************************
+
+SELECT count(*) count, title
+INTO mentoring_titles
+FROM mentorship_eligibility 
+GROUP BY title 
+ORDER BY count desc;
+
+select r.title, r.count retiring, m.count mentoring
+from mentoring_titles m
+right join retiring_titles r
+on (r.title = m.title);
+
+--**********************************
 --Maintenance Section
 --**********************************
 --drop table retirement_titles;
@@ -76,4 +91,4 @@ SELECT * FROM mentorship_eligibility;
 --drop table retiring_titles;
 --drop table mentorship_eligibility;
 
---select count(*) count, title from mentorship_eligibility group by title order by count desc;
+
